@@ -1,24 +1,31 @@
 package ee.cgi.test.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Setter
 public class FlightEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String destination;
-    private Date date;
-    private Time time;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate date;
+    @JsonFormat(pattern = "HH:mm:ss")
+    private LocalTime time;
     private Float price;
 }
