@@ -30,6 +30,10 @@ public class FlightController {
         return flightRepository.findByDestinationStartsWithOrderByDestinationAsc(letter.toUpperCase());
     }
 
+    @GetMapping("flights/{priceStart}/{priceEnd}")
+    public List<FlightEntity> getFligthsByPrice(@PathVariable Float priceStart, @PathVariable Float priceEnd){
+        return flightRepository.findByPriceBetweenOrderByPriceAsc(priceStart, priceEnd);
+    }
 
 
 }

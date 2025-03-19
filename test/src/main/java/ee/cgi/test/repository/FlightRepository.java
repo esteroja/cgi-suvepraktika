@@ -8,4 +8,6 @@ import java.util.List;
 public interface FlightRepository extends JpaRepository<FlightEntity, Long> {
 
     List<FlightEntity> findByDestinationStartsWithOrderByDestinationAsc(String letter);
+
+    List<FlightEntity> findByPriceBetweenOrderByPriceAsc(Float priceStart, Float priceEnd);
 }
