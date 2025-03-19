@@ -6,6 +6,7 @@ function App() {
   const [selectedLetter, setSelectedLetter] = useState("");
   const [priceStart, setPriceStart] = useState(null);
   const [priceEnd, setPriceEnd] = useState(null);
+  const [dateAfter, setDateAfter] = useState("")
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
   useEffect(() => {
@@ -18,12 +19,11 @@ function App() {
     setSelectedLetter(event.target.value);
   };
 
-  const handlePriceStartChange = (event) => {
-    setPriceStart(event.target.value);
-  };
-
-  const handlePriceEndChange = (event) => {
-    setPriceEnd(event.target.value);
+  const handleDateChange = (event) => {
+    const inputDate = event.target.value;
+        const formattedDate = inputDate.split("-").reverse().join("-");
+        console.log(formattedDate);
+    setDateAfter(event.target.value);
   };
 
   useEffect(() => {
@@ -48,7 +48,19 @@ function App() {
           .then(response => response.json())
           .then(body => setFlights(body));
       }
-    }, [priceStart, priceEnd]);
+  }, [priceStart, priceEnd]);
+
+  useEffect(() => {
+      if (dateAfter) {
+        fetch(`http://localhost:8080/flights/date/${dateAfter}`)
+          .then(response => response.json())
+          .then(body => setFlights(body));
+      } else {
+        fetch("http://localhost:8080/flights")
+          .then(response => response.json())
+          .then(body => setFlights(body));
+      }
+    }, [dateAfter]);
 
   return (
     <div className="min-h-screen p-6 bg-pink-100">
@@ -88,6 +100,15 @@ function App() {
           className="p-2 border rounded-md"
         />
       </div>
+      <div className="flex justify-center mb-6">
+          <label className="mr-2 font-medium">Flights after:</label>
+          <input
+            type="date"
+            value={dateAfter}
+            onChange={handleDateChange}
+            className="p-2 border rounded-md"
+          />
+        </div>
 
       <div>
         <table className="min-w-full table-auto bg-white shadow-md">
