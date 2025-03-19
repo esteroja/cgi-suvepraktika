@@ -5,6 +5,8 @@ import ee.cgi.test.repository.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -25,15 +27,23 @@ public class FlightController {
         return flightRepository.findAll();
     }
 
-    @GetMapping("flights/{letter}")
+    @GetMapping("flights/destination/{letter}")
     public List<FlightEntity> getFlightsByDestination(@PathVariable String letter) {
         return flightRepository.findByDestinationStartsWithOrderByDestinationAsc(letter.toUpperCase());
     }
 
-    @GetMapping("flights/{priceStart}/{priceEnd}")
+    @GetMapping("flights/price/{priceStart}/{priceEnd}")
     public List<FlightEntity> getFligthsByPrice(@PathVariable Float priceStart, @PathVariable Float priceEnd){
         return flightRepository.findByPriceBetweenOrderByPriceAsc(priceStart, priceEnd);
     }
+
+    @GetMapping("flights/date/{dateAfter}")
+    public List<FlightEntity> getFlightsAfterDate(@PathVariable String dateAfter){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate parsedDate = LocalDate.parse(dateAfter, formatter);
+        return flightRepository.findByDateGreaterThanOrderByDateAsc(parsedDate);
+    }
+
 
 
 }

@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     if (selectedLetter) {
-      fetch(`http://localhost:8080/flights/${selectedLetter}`)
+      fetch(`http://localhost:8080/flights/destination/${selectedLetter}`)
         .then(response => response.json())
         .then(body => setFlights(body));
     } else {
@@ -40,7 +40,7 @@ function App() {
 
   useEffect(() => {
       if (priceStart && priceEnd) {
-        fetch(`http://localhost:8080/flights/${priceStart}/${priceEnd}`)
+        fetch(`http://localhost:8080/flights/price/${priceStart}/${priceEnd}`)
           .then(response => response.json())
           .then(body => setFlights(body));
       } else {
@@ -88,7 +88,7 @@ function App() {
           className="p-2 border rounded-md"
         />
       </div>
-      
+
       <div>
         <table className="min-w-full table-auto bg-white shadow-md">
           <thead className="bg-pink-300">
