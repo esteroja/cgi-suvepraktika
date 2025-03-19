@@ -25,4 +25,11 @@ public class FlightController {
         return flightRepository.findAll();
     }
 
+    @GetMapping("flights/{letter}")
+    public List<FlightEntity> getFlightsByDestination(@PathVariable String letter) {
+        return flightRepository.findByDestinationStartsWithOrderByDestinationAsc(letter.toUpperCase());
+    }
+
+
+
 }

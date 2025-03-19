@@ -18,6 +18,7 @@ import java.time.LocalTime;
 public class FlightEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonFormat
     private Long id;
     @JsonFormat
     private String destination;
