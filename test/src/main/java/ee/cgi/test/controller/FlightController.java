@@ -16,8 +16,6 @@ public class FlightController {
 
     @GetMapping("flights")
     public List<FlightEntity> getFlights(){
-        List<FlightEntity> flights = flightRepository.findAll();
-        System.out.println(flights);
         return flightRepository.findAll();
     }
 
