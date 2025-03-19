@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     if (selectedLetter) {
-      fetch("http://localhost:8080/flights/${selectedLetter}")
+      fetch(`http://localhost:8080/flights/${selectedLetter}`)
         .then(response => response.json())
         .then(body => setFlights(body));
     } else {
