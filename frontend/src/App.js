@@ -29,39 +29,48 @@ function App() {
   }, [selectedLetter]);
 
   return (
-    <div className="App">
-      <h2>Flights</h2>
-      <div>
-        <label htmlFor="letter">Filter by first letter of the destination:</label>
-        <select id="letter" value={selectedLetter} onChange={handleLetterChange}>
-          <option value="">All</option>
-          {alphabet.split("").map((letter) => (
-            <option key={letter} value={letter}> {letter} </option>
-          ))}
-        </select>
-      </div>
+    <div className="min-h-screen p-6 bg-pink-100">
+        <div className="text-3xl font-semibold text-center mb-6">Flights</div>
+            <div className="flex justify-center mb-6">
+                <label htmlFor="letter" className="mr-2 font-medium">Filter by the first letter of the destination:</label>
+                    <select
+                      id="letter"
+                      value={selectedLetter}
+                      onChange={handleLetterChange}
+                      className="p-2 border rounded-md"
+                    >
+              <option value="">Select a Letter</option>
+              {alphabet.split("").map((letter) => (
+                <option key={letter} value={letter}>
+                  {letter.toUpperCase()}
+                </option>
+              ))}
+            </select>
+          </div>
 
-      <table border="2">
-        <thead>
-          <tr>
-            <th>Destination</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {flights.map((flight) => (
-            <tr key={flight.id}>
-              <td>{flight.destination}</td>
-              <td>{flight.date}</td>
-              <td>{flight.time}</td>
-              <td>{flight.price} EUR</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          <div>
+            <table className="min-w-full table-auto bg-white shadow-md">
+              <thead className="bg-pink-300">
+                <tr>
+                  <th className="p-4 text-left font-semibold">Destination</th>
+                  <th className="p-4 text-left font-semibold">Date</th>
+                  <th className="p-4 text-left font-semibold">Time</th>
+                  <th className="p-4 text-left font-semibold">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {flights.map((flight) => (
+                  <tr key={flight.id} className="border-b hover:bg-pink-50">
+                    <td className="p-4">{flight.destination}</td>
+                    <td className="p-4">{flight.date}</td>
+                    <td className="p-4">{flight.time}</td>
+                    <td className="p-4">{flight.price} EUR</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
   );
 }
 
