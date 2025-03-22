@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -40,6 +41,11 @@ public class FlightController {
     @GetMapping("flights/date/{dateAfter}")
     public List<FlightEntity> getFlightsAfterDate(@PathVariable String dateAfter){
         return flightRepository.findByDateGreaterThanOrderByDateAsc(LocalDate.parse(dateAfter));
+    }
+
+    @GetMapping("flights/departure/{timeAfter}")
+    public List<FlightEntity> getFlightsAfterTime(@PathVariable String timeAfter){
+        return flightRepository.findByTimeGreaterThanOrderByTimeAsc(LocalTime.parse(timeAfter));
     }
 
 
