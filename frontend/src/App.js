@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import './App.css';
+import SeatingPlan from "./SeatingPlan";
 
 function App() {
     const [flights, setFlights] = useState([]);
@@ -8,6 +9,9 @@ function App() {
     const [priceEnd, setPriceEnd] = useState(null);
     const [dateAfter, setDateAfter] = useState("");
     const [timeAfter, setTimeAfter] = useState("");
+    const [selectedFlight, setSelectedFlight] = useState(null);
+    const [ticketCount, setTicketCount] = useState(1);
+
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     useEffect(() => {
@@ -29,7 +33,11 @@ function App() {
 
     const handleTimeChange = (event) => {
         setTimeAfter(event.target.value);
-    }
+    };
+
+    const handleChosenFlight = (flight) => {
+        setSelectedFlight(flight);
+    };
 
     useEffect(() => {
         if (selectedLetter) {
@@ -79,10 +87,11 @@ function App() {
         }
     }, [timeAfter]);
 
-    return (<div className="min-h-screen p-6 bg-pink-100">
+    return (
+        <div className="min-h-screen p-6 bg-pink-100">
         <div className="text-3xl font-semibold text-center mb-6">Flights</div>
         <div className="flex justify-center mb-4">
-            <label htmlFor="letter" className="mr-2 font-medium">
+            <label htmlFor="letter" className="mr-2">
                 Filter by the first letter of the destination:
             </label>
             <select
@@ -98,7 +107,7 @@ function App() {
             </select>
         </div>
         <div className="flex justify-center mb-6">
-            <label className="mr-2 font-medium">Filter by ticket price range:</label>
+            <label className="mr-2">Filter by ticket price range:</label>
             <input
                 type="number"
                 placeholder="Min price"
@@ -119,7 +128,7 @@ function App() {
             />
         </div>
         <div className="flex justify-center mb-6">
-            <label className="mr-2 font-medium">Flights starting from this date:</label>
+            <label className="mr-2">Flights starting from this date:</label>
             <input
                 type="date"
                 value={dateAfter}
@@ -128,7 +137,7 @@ function App() {
             />
         </div>
         <div className="flex justify-center mb-6">
-            <label className="mr-2 font-medium">Flights departing after:</label>
+            <label className="mr-2">Flights departing after:</label>
             <input
                 type="time"
                 value={timeAfter}
@@ -148,14 +157,24 @@ function App() {
                 </tr>
                 </thead>
                 <tbody>
-                {flights.map((flight) => (<tr key={flight.id} className="border-b hover:bg-pink-50">
-                    <td className="p-4">{flight.destination}</td>
-                    <td className="p-4">{new Date(flight.date).toLocaleDateString("en-GB")}</td>
-                    <td className="p-4">{flight.time}</td>
-                    <td className="p-4">{flight.price} EUR</td>
-                </tr>))}
+                {flights.map((flight) => (
+                    <tr key={flight.id} className="border-b hover:bg-pink-50 cursor-pointer" onClick={() => handleChosenFlight(flight)}>
+                        <td className="p-4">{flight.destination}</td>
+                        <td className="p-4">{new Date(flight.date).toLocaleDateString("en-GB")}</td>
+                        <td className="p-4">{flight.time}</td>
+                        <td className="p-4">{flight.price} EUR</td>
+                    </tr>))}
                 </tbody>
             </table>
+
+            {selectedFlight && (
+                <SeatingPlan
+                    flight={selectedFlight}
+                    ticketCount={ticketCount}
+                    setTicketCount={setTicketCount}
+                    onClose={() => setSelectedFlight(null)}
+                />
+            )}
         </div>
     </div>);
 }
