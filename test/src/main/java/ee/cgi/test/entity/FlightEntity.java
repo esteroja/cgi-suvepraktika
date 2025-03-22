@@ -1,6 +1,5 @@
 package ee.cgi.test.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,14 +14,9 @@ import java.time.LocalTime;
 public class FlightEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonFormat
     private Long id;
-    @JsonFormat
     private String destination;
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
-    @JsonFormat(pattern = "HH:mm")
     private LocalTime time;
-    @JsonFormat
     private Float price;
 }

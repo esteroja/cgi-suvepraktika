@@ -19,7 +19,7 @@ function SeatingPlan({flight, ticketCount, setTicketCount, onClose}) {
     useEffect(() => {
         const shuffledSeats = [...seatLayout].sort(() => Math.random() - 0.5);
         setOccupiedSeats(shuffledSeats.slice(0, Math.floor(seatLayout.length * 0.3)));
-    }, []);
+    }, []); // siin funktsioonis on kasutatud ChatGPT abi
 
     useEffect(() => {
         recommendSeats();
@@ -29,7 +29,7 @@ function SeatingPlan({flight, ticketCount, setTicketCount, onClose}) {
         setSelectedSeats(selectedSeats);
     }, [selectedSeats]);
 
-    const recommendSeats = () => {
+    const recommendSeats = () => { // siin funktsioonis on kasutatud ChatGPT abi
         let availableSeats = seatLayout.filter(seat => !occupiedSeats.includes(seat));
 
         if (preferences.window) {
@@ -108,7 +108,7 @@ function SeatingPlan({flight, ticketCount, setTicketCount, onClose}) {
                 <div className="text-pink-400">Recommendations have pink borders</div>
                 <div className="text-pink-400 mb-2">To make a selection, click on a seat</div>
                 <div className="grid grid-cols-4 gap-3 mb-4">
-                    {seatLayout.map((seat) => (
+                    {seatLayout.map((seat) => ( // siin funktsioonis on kasutatud ChatGPT abi
                         <div
                             key={seat}
                             className={`p-2 border rounded text-center w-14

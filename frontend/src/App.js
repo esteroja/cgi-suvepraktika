@@ -26,7 +26,7 @@ function App() {
 
     const handleDateChange = (event) => {
         const inputDate = event.target.value;
-        const formattedDate = inputDate.split("-").reverse().join("-");
+        const formattedDate = inputDate.split("-").reverse().join("-"); // siin formaatimisel on kasutatud ChatGPT abi
         console.log(formattedDate);
         setDateAfter(event.target.value);
     };
@@ -87,7 +87,7 @@ function App() {
         }
     }, [timeAfter]);
 
-    return (
+    return ( // siin return blokis on css-i aluseks võetud ChatGPT pakutud variant, kuid seda on muudetud ja kohandatud
         <div className="min-h-screen p-6 bg-pink-100">
         <div className="text-3xl font-semibold text-center mb-6">Flights</div>
         <div className="flex justify-center mb-4">
