@@ -39,9 +39,7 @@ public class FlightController {
 
     @GetMapping("flights/date/{dateAfter}")
     public List<FlightEntity> getFlightsAfterDate(@PathVariable String dateAfter){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate parsedDate = LocalDate.parse(dateAfter, formatter);
-        return flightRepository.findByDateGreaterThanOrderByDateAsc(parsedDate);
+        return flightRepository.findByDateGreaterThanOrderByDateAsc(LocalDate.parse(dateAfter));
     }
 
 
